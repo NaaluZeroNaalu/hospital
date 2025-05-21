@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://362p7wjjlvhu"]
+
+[ext_resource type="Script" path="res://player/vidya.gd" id="1_fdewm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cxxl0"]
+
+[node name="vidya" type="CharacterBody3D"]
+script = ExtResource("1_fdewm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_cxxl0")
+
+[node name="eye" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55526, 0)
+
+[node name="light" type="SpotLight3D" parent="eye"]
+light_energy = 13.98
+spot_range = 5.412
+spot_attenuation = 0.24
+spot_angle = 17.57
+
+[node name="hand" type="RayCast3D" parent="eye"]
+transform = Transform3D(1, 0, 0, 0, 0.0505407, -0.998722, 0, 0.998722, 0.0505407, 0, 0, 0.0439858)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://q43eyqlxpma5"]
+[gd_scene load_steps=15 format=3 uid="uid://q43eyqlxpma5"]
 
 [ext_resource type="PackedScene" uid="uid://362p7wjjlvhu" path="res://player/vidya.tscn" id="1_bra3x"]
+[ext_resource type="Texture2D" uid="uid://b82qdtcdorahi" path="res://textures/wall/Marble_Tiles_Diffuse.jpg" id="2_y4urh"]
+[ext_resource type="Texture2D" uid="uid://ijvb67btsens" path="res://textures/wall/Marble_Tiles_Normal.png" id="3_x6sii"]
+[ext_resource type="Texture2D" uid="uid://dwu1f4bjeqccs" path="res://textures/wall/Marble_Tiles_Roughness.png" id="4_5se68"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hifxf"]
 
@@ -9,17 +12,131 @@ albedo_color = Color(0.0626547, 0.0182021, 0.00853244, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_81o12"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_lr8ov"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7td7"]
+albedo_texture = ExtResource("2_y4urh")
+roughness_texture = ExtResource("4_5se68")
+normal_enabled = true
+normal_texture = ExtResource("3_x6sii")
+uv1_scale = Vector3(16.51, 16.51, 16.51)
+uv2_offset = Vector3(0.205, 0.165, 0.085)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mnrm"]
+
+[sub_resource type="Sky" id="Sky_hua4u"]
+
+[sub_resource type="Environment" id="Environment_tb5eg"]
+background_mode = 2
+sky = SubResource("Sky_hua4u")
+
+[sub_resource type="BoxMesh" id="BoxMesh_c1guy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4vcgr"]
+
 [node name="Hospital" type="Node3D"]
 
-[node name="GroundFloor" type="MeshInstance3D" parent="."]
-transform = Transform3D(16.1526, 0, 0, 0, 0.0917957, 0, 0, 0, 12.7061, 0, 0, 0)
+[node name="GroundFloortharai" type="MeshInstance3D" parent="."]
+transform = Transform3D(72.2715, 0, 0, 0, 0.0917957, 0, 0, 0, 59.8089, 0, 0, -1.73711)
 mesh = SubResource("BoxMesh_hifxf")
 surface_material_override/0 = SubResource("StandardMaterial3D_jh6h3")
 
-[node name="Groundfloor" type="StaticBody3D" parent="GroundFloor"]
+[node name="Groundfloor" type="StaticBody3D" parent="GroundFloortharai"]
 
-[node name="Groundfloor" type="CollisionShape3D" parent="GroundFloor/Groundfloor"]
+[node name="Groundfloor" type="CollisionShape3D" parent="GroundFloortharai/Groundfloor"]
 shape = SubResource("BoxShape3D_81o12")
 
 [node name="vidya" parent="." instance=ExtResource("1_bra3x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="wall" type="MeshInstance3D" parent="."]
+transform = Transform3D(16.0122, 0, 0, 0, 5.19108, 0, 0, 0, 0.616491, 0, 2.6573, 2.55932)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="tubelight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0331551, -0.99945, 0, 0.99945, -0.0331551, 0.0594082, 4.52291, -2.3559)
+light_energy = 2.263
+light_indirect_energy = 5.687
+light_volumetric_fog_energy = 3.586
+light_size = 0.394
+light_specular = 6.48
+omni_range = 8.622
+omni_attenuation = 1.155
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tb5eg")
+
+[node name="wall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(16.0122, 0, 0, 0, 5.19108, 0, 0, 0, 0.616491, 0, 2.6573, -6.06108)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall2"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall2/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="sittingwall" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.31496, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545769, -5.26675)
+mesh = SubResource("BoxMesh_c1guy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="sittingwall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sittingwall/StaticBody3D"]
+shape = SubResource("BoxShape3D_4vcgr")
+
+[node name="wall3" type="MeshInstance3D" parent="."]
+transform = Transform3D(16.0122, 0, 0, 0, 5.19108, 0, 0, 0, 0.616491, 15.9162, 2.6573, 2.54404)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall3"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall3/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="wall4" type="MeshInstance3D" parent="."]
+transform = Transform3D(16.0122, 0, 0, 0, 5.19108, 0, 0, 0, 0.616491, 23.4778, 2.6573, -5.97975)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall4"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall4/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="wall5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.325555, 0, 0.616364, 0, 5.19108, 0, -16.0089, 0, -0.0125343, 21.8103, 2.63217, -14.2463)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall5"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall5/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="wall6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.314372, 0, 2.1101, 0, 1.76611, 0, -15.459, 0, -0.0429107, 17.9601, 0.973892, -14.0333)
+mesh = SubResource("BoxMesh_lr8ov")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7td7")
+
+[node name="wall" type="StaticBody3D" parent="wall6"]
+
+[node name="wallcollision" type="CollisionShape3D" parent="wall6/wall"]
+shape = SubResource("BoxShape3D_8mnrm")
+
+[node name="tubelight2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0331551, -0.99945, 0, 0.99945, -0.0331551, 17.8865, 4.52291, -15.9263)
+light_energy = 2.263
+light_indirect_energy = 5.687
+light_volumetric_fog_energy = 3.586
+light_size = 0.394
+light_specular = 6.48
+omni_range = 8.622
+omni_attenuation = 1.155
