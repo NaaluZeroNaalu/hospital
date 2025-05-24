@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://q43eyqlxpma5"]
+[gd_scene load_steps=16 format=3 uid="uid://cj2ctakbw18kn"]
 
 [ext_resource type="PackedScene" uid="uid://362p7wjjlvhu" path="res://player/vidya.tscn" id="1_bra3x"]
 [ext_resource type="Texture2D" uid="uid://b82qdtcdorahi" path="res://textures/wall/Marble_Tiles_Diffuse.jpg" id="2_y4urh"]
@@ -11,6 +11,9 @@
 albedo_color = Color(0.0626547, 0.0182021, 0.00853244, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_81o12"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_38uiv"]
+size = Vector3(0.15, 0.3, 0.05)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lr8ov"]
 
@@ -48,6 +51,10 @@ shape = SubResource("BoxShape3D_81o12")
 
 [node name="vidya" parent="." instance=ExtResource("1_bra3x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="phone" type="MeshInstance3D" parent="vidya"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.5, -0.5)
+mesh = SubResource("BoxMesh_38uiv")
 
 [node name="wall" type="MeshInstance3D" parent="."]
 transform = Transform3D(16.0122, 0, 0, 0, 5.19108, 0, 0, 0, 0.616491, 0, 2.6573, 2.55932)
@@ -140,3 +147,11 @@ light_size = 0.394
 light_specular = 6.48
 omni_range = 8.622
 omni_attenuation = 1.155
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

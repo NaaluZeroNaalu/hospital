@@ -1,14 +1,19 @@
 extends CharacterBody3D
 
 var speed = 5.0
-var sprint_speed = 8.0
+var sprint_speed = 12.0
 var gravity = 9.8
 var mouse_sensitivity = 0.002
 var flashlight_on = false
+@onready var phone=$phone
+var phone_vis=false
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$eye/light.light_energy = 0.0  # Flashlight off initially
+	phone.visible=false
+
 
 func _physics_process(delta):
 	# Gravity
@@ -31,7 +36,11 @@ func _physics_process(delta):
 	# Flashlight toggle
 	if Input.is_action_just_pressed("flashlight"):
 		flashlight_on = !flashlight_on
-		$eye/light.light_energy = 10 if flashlight_on else 0.0
+		$eye/light.light_energy = 12 if flashlight_on else 0.0
+	if Input.is_action_just_pressed("flashlight"):
+		phone_vis=!phone_vis
+		phone.visible=phone_vis 
+		
 
 func _process(_delta):
 	if Input.is_action_just_pressed("interact"):
